@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>El Juego del Arte Conceptual - Sol LeWitt</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800;900&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        conceptCyan: '#00AEEF',
+                        conceptMagenta: '#E5007F',
+                        conceptYellow: '#FFF200',
+                        ink: '#111111',
+                        paper: '#F8F9FA'
+                    },
+                    animation: {
+                        'cmy-cycle': 'cmyCycle 3s infinite',
+                        'fade-in-up': 'fadeInUp 0.5s ease-out forwards',
+                        'bounce-slow': 'bounce 3s infinite',
+                    },
+                    keyframes: {
+                        cmyCycle: {
+                            '0%, 100%': { backgroundColor: '#E5007F' }, /* Magenta */
+                            '33%': { backgroundColor: '#00AEEF' }, /* Cyan */
+                            '66%': { backgroundColor: '#FFF200' }, /* Yellow */
+                        },
+                        fadeInUp: {
+                            '0%': { opacity: '0', transform: 'translateY(10px)' },
+                            '100%': { opacity: '1', transform: 'translateY(0)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body {
+            background-color: #ffffff;
+            color: #111111;
+        }
+
+        /* */
+        .bg-polar-grid {
+            background-image: radial-gradient(circle at center, transparent 0%, transparent 4.5%, rgba(0,0,0,0.05) 5%, transparent 5.5%),
+                              radial-gradient(circle at center, transparent 0%, transparent 9.5%, rgba(0,0,0,0.05) 10%, transparent 10.5%),
+                              radial-gradient(circle at center, transparent 0%, transparent 14.5%, rgba(0,0,0,0.05) 15%, transparent 15.5%),
+                              radial-gradient(circle at center, transparent 0%, transparent 19.5%, rgba(0,0,0,0.05) 20%, transparent 20.5%),
+                              linear-gradient(0deg, transparent 49.5%, rgba(0,0,0,0.05) 50%, transparent 50.5%),
+                              linear-gradient(90deg, transparent 49.5%, rgba(0,0,0,0.05) 50%, transparent 50.5%),
+                              linear-gradient(45deg, transparent 49.5%, rgba(0,0,0,0.05) 50%, transparent 50.5%),
+                              linear-gradient(-45deg, transparent 49.5%, rgba(0,0,0,0.05) 50%, transparent 50.5%);
+            background-size: 100vmax 100vmax;
+            background-position: center;
+        }
+
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #ffffff; }
+        ::-webkit-scrollbar-thumb { background: #cbd5e1; }
+        ::-webkit-scrollbar-thumb:hover { background: #E5007F; }
+        
+        .cmyk-filter {
+            filter: grayscale(100%) contrast(120%);
+            mix-blend-mode: multiply;
+        }
+    </style>
+</head>
+<body class="antialiased selection:bg-conceptYellow selection:text-ink">
+
+    <nav class="fixed top-0 w-full bg-white/90 backdrop-blur-md z-50 border-b border-gray-100 shadow-sm">
+        <div class="max-w-6xl mx-auto px-6 py-4 flex justify-between items-center">
+            <a href="#inicio" class="text-xl font-black tracking-tighter text-ink uppercase hover:opacity-80 transition-opacity flex items-center gap-3">
+                <!-- Punto animado CMY que cambia de color -->
+                <span class="w-4 h-4 rounded-full inline-block animate-cmy-cycle transition-colors duration-300"></span>
+                arte conceptual
+            </a>
+            <div class="hidden md:flex space-x-8 text-sm font-bold uppercase tracking-wider text-gray-500">
+                <a href="#teoria" class="hover:text-conceptCyan hover:-translate-y-0.5 transition-all duration-300">Sol LeWitt</a>
+                <a href="#juego" class="hover:text-conceptMagenta hover:-translate-y-0.5 transition-all duration-300">El Juego</a>
+                <a href="#instrucciones" class="hover:text-conceptYellow hover:-translate-y-0.5 transition-all duration-300">Instrucciones</a>
+            </div>
+        </div>
+    </nav>
+
+    <section id="inicio" class="min-h-screen flex items-center justify-center pt-20 px-6 relative overflow-hidden bg-paper">
+        <div class="absolute inset-0 bg-polar-grid opacity-60"></div>
+        
+        <div class="max-w-5xl w-full relative z-10 text-center">
+            
+            <!-- 3 Bolas en Magenta, Amarillo y Cian -->
+            <div class="flex justify-center gap-6 mb-10">
+                <div class="w-16 h-16 rounded-full bg-conceptMagenta shadow-xl animate-bounce-slow" style="animation-delay: 0s;"></div>
+                <div class="w-16 h-16 rounded-full bg-conceptYellow shadow-xl animate-bounce-slow" style="animation-delay: 0.2s;"></div>
+                <div class="w-16 h-16 rounded-full bg-conceptCyan shadow-xl animate-bounce-slow" style="animation-delay: 0.4s;"></div>
+            </div>
+
+            <h1 class="text-6xl md:text-8xl font-black uppercase tracking-tight text-ink mb-8 leading-none">
+                El juego del <br>
+                <span class="text-transparent bg-clip-text bg-gradient-to-r from-conceptCyan via-conceptMagenta to-conceptYellow">arte conceptual</span>
+            </h1>
+            
+            <blockquote class="text-xl md:text-3xl font-light text-gray-600 max-w-4xl mx-auto leading-relaxed border-l-8 border-conceptMagenta pl-6 text-left italic bg-white/80 p-8 rounded-r-2xl shadow-lg backdrop-blur-sm">
+                "Cada persona dibuja una línea de forma diferente y cada persona entiende las palabras de manera diferente."
+                <footer class="text-base font-black mt-6 not-italic text-ink uppercase tracking-widest">— Sol LeWitt</footer>
+            </blockquote>
+
+            <div class="mt-16">
+                <a href="#teoria" class="inline-flex items-center gap-3 bg-ink text-white px-10 py-5 font-black uppercase tracking-widest text-lg hover:bg-conceptCyan hover:shadow-2xl hover:-translate-y-2 transition-all duration-300 rounded-full">
+                    Comenzar
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path></svg>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <section id="teoria" class="py-24 px-6 bg-white">
+        <div class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-20 items-center">
+            
+            <!-- Composición Fotográfica Dinámica -->
+            <div class="order-2 lg:order-1 relative grid grid-cols-2 gap-8 items-center">
+                <!-- Foto Sol LeWitt con filtro y fallback -->
+                <div class="relative group z-20 hover:z-30 transition-all duration-300 transform hover:scale-105">
+                    <!-- Sombra desfasada estilo Pop Art -->
+                    <div class="absolute inset-0 bg-conceptCyan translate-x-4 translate-y-4 rounded-xl"></div>
+                    <div class="relative bg-white p-2 rounded-xl border-4 border-ink">
+                        <img src="Sol-Lewitt.jpg" 
+                             onerror="this.onerror=null; this.src='https://placehold.co/600x800/00AEEF/ffffff?text=Sol+LeWitt';" 
+                             alt="Retrato de Sol LeWitt" 
+                             class="w-full h-auto object-cover rounded-lg cmyk-filter">
+                    </div>
+                </div>
+                
+                <!-- Obra abstracta con filtro y fallback -->
+                <div class="relative group mt-24 z-10 hover:z-30 transition-all duration-300 transform hover:scale-105">
+                    <div class="absolute inset-0 bg-conceptMagenta -translate-x-4 translate-y-4 rounded-xl"></div>
+                    <div class="relative bg-white p-2 rounded-xl border-4 border-ink">
+                        <img src="122_1_post_war_contemporary_art_november_2024_sol_lewitt_squiggly_brushstrokes__rago_auction.jpg" 
+                             onerror="this.onerror=null; this.src='https://placehold.co/600x600/E5007F/ffffff?text=Obra+Abstracta';" 
+                             alt="Obra de Sol LeWitt" 
+                             class="w-full h-auto object-cover rounded-lg">
+                    </div>
+                </div>
+                
+                <!-- Decoración Yellow -->
+                <div class="absolute -bottom-10 -left-10 w-32 h-32 bg-conceptYellow rounded-full mix-blend-multiply opacity-90 animate-pulse z-0"></div>
+            </div>
+
+            <div class="order-1 lg:order-2">
+                <div class="inline-block px-4 py-2 bg-gray-100 text-ink text-sm font-black uppercase tracking-widest rounded-full mb-6 border-2 border-ink">
+                    El Artista Posmoderno
+                </div>
+                <h2 class="text-5xl font-black uppercase text-ink mb-8 leading-tight">La idea se convierte en una máquina que crea el arte</h2>
+                
+                <div class="space-y-6 text-gray-700 text-xl font-light leading-relaxed">
+                    <p>
+                        <strong>Solomon (Sol) LeWitt (1928-2007)</strong>, pionero del arte conceptual. Cuando trabajaba para el arquitecto I.M. Pei, afirmó que un arquitecto no construye su propio diseño, pero aún se le considera artista. Un compositor requiere músicos para hacer realidad su creación. Deducía que el arte ocurre antes de que se vea, cuando se concibe en la mente del artista.
+                    </p>
+                    <div class="bg-paper p-8 border-l-8 border-conceptCyan rounded-r-xl shadow-inner">
+                        <p class="font-medium italic text-ink">
+                            "Cuando un artista usa una forma conceptual de arte, significa que toda la planificación y las decisiones se toman de antemano y la ejecución es una tarea mecánica."
+                        </p>
+                    </div>
+                    <p>
+                        Produjo unos 1,350 diseños conocidos como "Dibujos de Pared". Proporcionaba el concepto, una instrucción escrita (matemáticas, arquitectura y diseño), y colaboraba con otros para producir la obra. Dejaba elementos abiertos a la interpretación, por lo que <strong>no hay dos exactamente iguales</strong>.
+                    </p>
+                </div>
+            </div>
+            
+        </div>
+    </section>
+
+    <section id="juego" class="py-24 px-6 bg-ink text-white">
+        <div class="max-w-6xl mx-auto">
+            <div class="text-center mb-16">
+                <h2 class="text-5xl md:text-6xl font-black uppercase mb-6 text-transparent bg-clip-text bg-gradient-to-r from-conceptYellow to-conceptMagenta">Preparación del Juego</h2>
+                <p class="text-2xl text-gray-300 font-light max-w-3xl mx-auto">
+                    Un juego de colorear colaborativo para entender el principio detrás del trabajo de Sol LeWitt.
+                </p>
+            </div>
+
+            <!-- Ejemplo Visual Único (Imagen adjunta) -->
+            <div class="mb-20 max-w-5xl mx-auto">
+                <div class="bg-white p-4 rounded-3xl border-4 border-conceptCyan shadow-[12px_12px_0px_0px_rgba(229,0,127,1)] transform hover:-translate-y-2 hover:shadow-[16px_16px_0px_0px_rgba(255,242,0,1)] transition-all duration-500 relative group">
+                    <div class="absolute inset-0 bg-conceptCyan opacity-0 group-hover:opacity-10 transition-opacity rounded-3xl mix-blend-multiply pointer-events-none z-10"></div>
+                    <h4 class="text-ink font-black uppercase mb-4 text-center tracking-widest text-lg">Ejemplos de Resultados</h4>
+                    <div class="relative overflow-hidden rounded-xl border-4 border-ink">
+                        <img src="./Imagen1.png" 
+                             alt="Ejemplo de resultados del Juego del Arte Conceptual" 
+                             class="w-full h-auto object-cover transform group-hover:scale-105 transition-transform duration-700">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Materiales y Reglas -->
+            <div class="grid grid-cols-1 md:grid-cols-12 gap-12">
+                <!-- Materiales -->
+                <div class="md:col-span-4 bg-white/10 p-8 rounded-2xl border border-white/20 backdrop-blur-md">
+                    <h3 class="text-3xl font-black uppercase text-conceptYellow mb-6 flex items-center gap-3">
+                        Materiales
+                    </h3>
+                    <ul class="space-y-6 text-gray-200 text-lg">
+                        <li class="flex items-start gap-4">
+                            <span class="w-4 h-4 rounded-full bg-conceptYellow mt-1 flex-shrink-0"></span>
+                            <span>Papel cuadriculado o cuaderno de <strong>rejilla circular</strong>.</span>
+                        </li>
+                        <li class="flex items-start gap-4">
+                            <span class="w-4 h-4 rounded-full bg-conceptMagenta mt-1 flex-shrink-0"></span>
+                            <span>Lápices de colores artísticos.</span>
+                        </li>
+                        <li class="flex items-start gap-4">
+                            <span class="w-4 h-4 rounded-full bg-conceptCyan mt-1 flex-shrink-0"></span>
+                            <span>Marcadores lavables o de punta dual.</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Reglas -->
+                <div class="md:col-span-8 grid grid-cols-1 sm:grid-cols-2 gap-6">
+                    <div class="bg-white/5 p-8 rounded-xl border border-white/10 hover:border-conceptMagenta hover:bg-white/10 transition-all">
+                        <div class="text-5xl font-black text-conceptMagenta/80 mb-4">01</div>
+                        <h4 class="text-2xl font-bold uppercase mb-3">Sin Perdedores</h4>
+                        <p class="text-gray-300">No hay ganadores ni perdedores en esta actividad.</p>
+                    </div>
+                    <div class="bg-white/5 p-8 rounded-xl border border-white/10 hover:border-conceptCyan hover:bg-white/10 transition-all">
+                        <div class="text-5xl font-black text-conceptCyan/80 mb-4">02</div>
+                        <h4 class="text-2xl font-bold uppercase mb-3">Interpretación Libre</h4>
+                        <p class="text-gray-300">No hay una forma "incorrecta" de interpretar las instrucciones dadas.</p>
+                    </div>
+                    <div class="bg-white/5 p-8 rounded-xl border border-white/10 hover:border-conceptYellow hover:bg-white/10 transition-all">
+                        <div class="text-5xl font-black text-conceptYellow/80 mb-4">03</div>
+                        <h4 class="text-2xl font-bold uppercase mb-3">Fuera de la caja</h4>
+                        <p class="text-gray-300">Intenta idear una forma única de completar una instrucción, distinta a los demás.</p>
+                    </div>
+                    <div class="bg-white/5 p-8 rounded-xl border border-white/10 hover:border-white hover:bg-white/10 transition-all">
+                        <div class="text-5xl font-black text-white/80 mb-4">04</div>
+                        <h4 class="text-2xl font-bold uppercase mb-3">Comparte</h4>
+                        <p class="text-gray-300">Se anima a los estudiantes a compartir sus sentimientos sobre los pasos.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="instrucciones" class="py-32 px-6 bg-paper relative overflow-hidden min-h-screen">
+        
+        <div class="max-w-6xl mx-auto relative z-10">
+            <div class="flex flex-col md:flex-row gap-12 items-end mb-16">
+                <div class="md:w-2/3">
+                    <h2 class="text-5xl md:text-6xl font-black uppercase text-ink mb-6">La Máquina Creadora</h2>
+                    <p class="text-xl text-gray-600 font-light leading-relaxed">
+                        Cada artista recibe estas mismas palabras, pero cada obra será diferente. Revela los pasos uno a uno para construir la obra en tu cuadrícula.
+                    </p>
+                </div>
+                <div class="md:w-1/3 flex justify-end flex-col items-end gap-6">
+                    <div id="contador-pasos" class="bg-white px-8 py-4 rounded-xl shadow-md border-2 border-ink font-mono text-xl font-black text-conceptMagenta uppercase tracking-widest transition-all">
+                        Pasos: 0 / 18
+                    </div>
+                    <!-- Botón interactivo -->
+                    <button id="btn-revelar" class="bg-ink text-white px-8 py-4 rounded-full font-black uppercase tracking-widest text-lg hover:bg-conceptCyan hover:text-ink hover:shadow-2xl hover:-translate-y-1 transition-all duration-300 flex items-center gap-3 border-4 border-transparent hover:border-ink">
+                        Añadir Siguiente Paso
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M12 4v16m8-8H4"></path></svg>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Grid de Instrucciones (Se acumulan, no se borran) -->
+            <div id="grid-instrucciones" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                
+                <!-- Items listos para ser revelados -->
+                <div class="instruccion-paso hidden bg-white p-8 rounded-2xl shadow-lg border-2 border-conceptYellow items-start gap-6 transition-all">
+                    <span class="text-4xl font-black text-conceptYellow">01</span>
+                    <p class="text-gray-800 font-bold text-lg mt-2">Colorea un anillo de oro.</p>
+                </div>
+                <div class="instruccion-paso hidden bg-white p-8 rounded-2xl shadow-lg border-2 border-conceptCyan items-start gap-6">
+                    <span class="text-4xl font-black text-conceptCyan">02</span>
+                    <p class="text-gray-800 font-bold text-lg mt-2">Colorea la mitad de un anillo azul.</p>
+                </div>
+                <div class="instruccion-paso hidden bg-white p-8 rounded-2xl shadow-lg border-2 border-orange-500 items-start gap-6">
+                    <span class="text-4xl font-black text-orange-500">03</span>
+                    <p class="text-gray-800 font-bold text-lg mt-2">Colorea la mitad de un anillo naranja.</p>
+                </div>
+                <div class="instruccion-paso hidden bg-white p-8 rounded-2xl shadow-lg border-2 border-ink items-start gap-6">
+                    <span class="text-4xl font-black text-ink">04</span>
+                    <p class="text-gray-800 font-bold text-lg mt-2">Haz un tablero de ajedrez en una sección en blanco y negro.</p>
+                </div>
+                <div class="instruccion-paso hidden bg-white p-8 rounded-2xl shadow-lg border-2 border-conceptMagenta items-start gap-6">
+                    <span class="text-4xl font-black text-conceptMagenta">05</span>
+                    <p class="text-gray-800 font-bold text-lg mt-2">Haz un anillo a rayas.</p>
+                </div>
+                <div class="instruccion-paso hidden bg-white p-8 rounded-2xl shadow-lg border-2 border-gray-400 items-start gap-6">
+                    <span class="text-4xl font-black text-gray-400">06</span>
+                    <p class="text-gray-800 font-bold text-lg mt-2">Haz un anillo grueso.</p>
+                </div>
+                <div class="instruccion-paso hidden bg-white p-8 rounded-2xl shadow-lg border-2 border-gray-400 items-start gap-6">
+                    <span class="text-4xl font-black text-gray-400">07</span>
+                    <p class="text-gray-800 font-bold text-lg mt-2">Haz un anillo delgado.</p>
+                </div>
+                <div class="instruccion-paso hidden bg-white p-8 rounded-2xl shadow-lg border-2 border-ink items-start gap-6">
+                    <span class="text-4xl font-black text-ink">08</span>
+                    <p class="text-gray-800 font-bold text-lg mt-2">Haz rayas de cebra en una sección.</p>
+                </div>
+                <div class="instruccion-paso hidden bg-ink p-8 rounded-2xl shadow-lg border-2 border-ink items-start gap-6">
+                    <span class="text-4xl font-black text-white/50">09</span>
+                    <p class="text-white font-bold text-lg mt-2">Colorea un cuarto de anillo con un color oscuro.</p>
+                </div>
+                <div class="instruccion-paso hidden bg-gray-50 p-8 rounded-2xl shadow-lg border-2 border-gray-200 items-start gap-6">
+                    <span class="text-4xl font-black text-gray-300">10</span>
+                    <p class="text-gray-800 font-bold text-lg mt-2">Colorea un cuarto de anillo con un color claro.</p>
+                </div>
+                <div class="instruccion-paso hidden bg-pink-100 p-8 rounded-2xl shadow-lg border-2 border-pink-400 items-start gap-6">
+                    <span class="text-4xl font-black text-pink-400">11</span>
+                    <p class="text-gray-800 font-bold text-lg mt-2">Colorea una pieza rosa que se vea como una porción de pizza.</p>
+                </div>
+                <div class="instruccion-paso hidden bg-gradient-to-r from-blue-100 to-green-100 p-8 rounded-2xl shadow-lg border-2 border-conceptCyan items-start gap-6">
+                    <span class="text-4xl font-black text-conceptCyan">12</span>
+                    <p class="text-gray-800 font-bold text-lg mt-2">Haz una sección con rayas azules y verdes.</p>
+                </div>
+                <div class="instruccion-paso hidden bg-gradient-to-r from-red-100 to-yellow-100 p-8 rounded-2xl shadow-lg border-2 border-red-500 items-start gap-6">
+                    <span class="text-4xl font-black text-red-500">13</span>
+                    <p class="text-gray-800 font-bold text-lg mt-2">Haz una sección con rayas rojas y amarillas.</p>
+                </div>
+                <div class="instruccion-paso hidden bg-white p-8 rounded-2xl shadow-lg border-4 border-ink items-start gap-6">
+                    <span class="text-4xl font-black text-ink">14</span>
+                    <p class="text-gray-800 font-bold text-lg mt-2">Delinea una sección con negro.</p>
+                </div>
+                <div class="instruccion-paso hidden bg-white p-8 rounded-2xl shadow-lg border-4 border-red-500 items-start gap-6">
+                    <span class="text-4xl font-black text-red-500">15</span>
+                    <p class="text-gray-800 font-bold text-lg mt-2">Delinea una sección con rojo.</p>
+                </div>
+                <div class="instruccion-paso hidden bg-white p-8 rounded-2xl shadow-lg border-4 border-green-500 items-start gap-6">
+                    <span class="text-4xl font-black text-green-500">16</span>
+                    <p class="text-gray-800 font-bold text-lg mt-2">Delinea una sección con verde.</p>
+                </div>
+                <div class="instruccion-paso hidden bg-white p-8 rounded-2xl shadow-lg border-2 border-ink items-start gap-6">
+                    <span class="text-4xl font-black text-ink">17</span>
+                    <p class="text-gray-800 font-bold text-lg mt-2">Haz otra sección de tablero de ajedrez.</p>
+                </div>
+                <div class="instruccion-paso hidden bg-white p-8 rounded-2xl shadow-lg border-2 border-ink items-start gap-6">
+                    <span class="text-4xl font-black text-ink">18</span>
+                    <p class="text-gray-800 font-bold text-lg mt-2">Haz otra sección a rayas de cebra.</p>
+                </div>
+            </div>
+            
+            <p class="text-base text-gray-500 font-bold mt-12 text-center uppercase tracking-widest bg-white/80 py-4 rounded-lg inline-block px-8">
+                * Nota: si usas papel cuadriculado regular, sustituye "anillo" por "cuadrado".
+            </p>
+        </div>
+    </section>
+
+    <footer class="py-16 px-6 bg-ink text-white flex flex-col items-center justify-center">
+        <h2 class="text-3xl font-black uppercase tracking-widest text-white mb-8">
+            arte conceptual
+        </h2>
+        <div class="flex gap-6 mb-10">
+            <div class="w-6 h-6 bg-conceptCyan rounded-sm transform rotate-12"></div>
+            <div class="w-6 h-6 bg-conceptMagenta rounded-sm transform -rotate-12"></div>
+            <div class="w-6 h-6 bg-conceptYellow rounded-sm transform rotate-45"></div>
+        </div>
+        <p class="text-sm text-gray-500 font-mono text-center uppercase tracking-widest leading-loose">
+            Basado en las ideas del artista Sol LeWitt.<br>
+            Proyecto educativo de artes visuales.
+        </p>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const pasos = document.querySelectorAll('.instruccion-paso');
+            const btnRevelar = document.getElementById('btn-revelar');
+            const contador = document.getElementById('contador-pasos');
+            let pasoActual = 0;
+
+            btnRevelar.addEventListener('click', () => {
+                if (pasoActual < pasos.length) {
+                    // Quitamos hidden y aplicamos flex para revelar SIN ocultar los anteriores
+                    pasos[pasoActual].classList.remove('hidden');
+                    pasos[pasoActual].classList.add('flex', 'animate-fade-in-up');
+                    
+                    pasoActual++;
+                    
+                    // Actualizar texto del contador
+                    contador.innerText = `Pasos: ${pasoActual} / 18`;
+
+                    // Feedback visual en el contador
+                    contador.classList.add('scale-105', 'text-ink', 'bg-conceptYellow', 'border-conceptYellow');
+                    setTimeout(() => {
+                        contador.classList.remove('scale-105', 'text-ink', 'bg-conceptYellow', 'border-conceptYellow');
+                    }, 300);
+                }
+
+                // Si ya se revelaron todos, ocultar el botón
+                if (pasoActual === pasos.length) {
+                    btnRevelar.classList.add('opacity-0', 'pointer-events-none');
+                    setTimeout(() => { btnRevelar.style.display = 'none'; }, 300);
+                }
+            });
+        });
+    </script>
+</body>
+</html>
